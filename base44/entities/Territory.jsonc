@@ -1,0 +1,108 @@
+{
+  "name": "Territory",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "continent",
+        "country",
+        "region",
+        "city",
+        "town",
+        "village",
+        "spot"
+      ],
+      "enumColors": [
+        "purple",
+        "blue",
+        "green",
+        "yellow",
+        "pink",
+        "gray",
+        "green"
+      ]
+    },
+    "level": {
+      "type": "number",
+      "description": "0 continent, 1 country, 2 region, 3 city, 4 town, 5 village/spot"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "center_lat": {
+      "type": "number"
+    },
+    "center_lng": {
+      "type": "number"
+    },
+    "seat_capacity": {
+      "type": "number",
+      "default": 100
+    },
+    "seats_taken": {
+      "type": "number",
+      "default": 0
+    },
+    "claim_tokens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "base_price_credits": {
+      "type": "number",
+      "default": 0
+    },
+    "base_price_points": {
+      "type": "number",
+      "default": 0
+    },
+    "is_custom": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "kind",
+    "level",
+    "center_lat",
+    "center_lng"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.is_custom": true
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

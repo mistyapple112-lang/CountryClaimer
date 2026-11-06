@@ -1,0 +1,51 @@
+{
+  "name": "MapSettings",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": [
+        "osm",
+        "carto",
+        "maptiler",
+        "mapbox",
+        "stadia"
+      ],
+      "enumColors": [
+        "green",
+        "gray",
+        "blue",
+        "purple",
+        "green"
+      ],
+      "default": "osm"
+    },
+    "api_key": {
+      "type": "string"
+    },
+    "updated_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "provider"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

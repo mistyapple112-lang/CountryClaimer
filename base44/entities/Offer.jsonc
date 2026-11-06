@@ -1,0 +1,78 @@
+{
+  "name": "Offer",
+  "type": "object",
+  "properties": {
+    "territory_id": {
+      "type": "string"
+    },
+    "territory_name": {
+      "type": "string"
+    },
+    "territory_kind": {
+      "type": "string"
+    },
+    "buyer_id": {
+      "type": "string"
+    },
+    "buyer_email": {
+      "type": "string"
+    },
+    "points": {
+      "type": "number",
+      "description": "Points the buyer offers per seat"
+    },
+    "message": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "accepted",
+        "declined"
+      ],
+      "enumColors": [
+        "yellow",
+        "green",
+        "red"
+      ],
+      "default": "pending"
+    },
+    "final_points": {
+      "type": "number",
+      "description": "Points actually charged when the admin accepted"
+    }
+  },
+  "required": [
+    "territory_id",
+    "buyer_id",
+    "points"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.buyer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.buyer_id": "{{user.id}}"
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Public handle shown on seats, comments and profile"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Max 160 characters"
+    },
+    "discord_tag": {
+      "type": "string"
+    },
+    "tiktok_handle": {
+      "type": "string"
+    },
+    "home_label": {
+      "type": "string",
+      "description": "Place the member says they are playing from, shown on the map and to admins"
+    },
+    "home_lat": {
+      "type": "number"
+    },
+    "home_lng": {
+      "type": "number"
+    },
+    "location_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credits": {
+      "type": "number",
+      "default": 0,
+      "description": "Premium currency balance. Admin-granted only.",
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "country_points": {
+      "type": "number",
+      "default": 0,
+      "description": "Country points balance. Admin-granted only.",
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

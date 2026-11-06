@@ -1,0 +1,73 @@
+{
+  "name": "Comment",
+  "type": "object",
+  "properties": {
+    "territory_id": {
+      "type": "string"
+    },
+    "author_id": {
+      "type": "string"
+    },
+    "author_email": {
+      "type": "string"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "author_avatar_url": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "media_uri": {
+      "type": "string",
+      "description": "Private storage uri of an attached clip or image"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    }
+  },
+  "required": [
+    "territory_id",
+    "author_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "data.author_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "data.author_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.author_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "name": "Seat",
+  "type": "object",
+  "properties": {
+    "territory_id": {
+      "type": "string"
+    },
+    "territory_kind": {
+      "type": "string",
+      "description": "Copied from the territory so per-kind claim limits can be counted"
+    },
+    "slot": {
+      "type": "number"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_display_name": {
+      "type": "string"
+    },
+    "owner_avatar_url": {
+      "type": "string"
+    },
+    "acquired_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "price_paid": {
+      "type": "number",
+      "default": 0
+    },
+    "paid_with": {
+      "type": "string",
+      "enum": [
+        "free",
+        "credits",
+        "points",
+        "trade",
+        "admin"
+      ],
+      "enumColors": [
+        "green",
+        "blue",
+        "yellow",
+        "purple",
+        "gray"
+      ]
+    }
+  },
+  "required": [
+    "territory_id",
+    "slot",
+    "owner_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$or": [
+        {
+          "data.owner_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.owner_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.owner_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
